@@ -1,0 +1,1 @@
+python heatmap.py --opencv --bop --overlay --path_json_gt example/scene_gt.json --path_json_gu example/diff_dope.json --objs_folder example/models/ --contour --spp 100
