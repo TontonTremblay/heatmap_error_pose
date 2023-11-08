@@ -115,7 +115,8 @@ parser.add_argument(
 parser.add_argument(
     '--max_distance',
     type = float,
-    default=0.1,
+    default=0.5,
+    help='max distance for the heatmap in cm'
 )
 parser.add_argument(
     '--outf_bop',
@@ -530,7 +531,6 @@ for iobj,obj in enumerate(data_json[str(opt.bop_frame)]):
     dist_adds = np.mean(dist_adds_all)
 
     print(dist_add_all.min(),dist_add_all.max())
-    max_distance = 0.5
     dist_add_all = np.append(dist_add_all,[0,max_distance])
     dist_add_all[dist_add_all>max_distance] = max_distance
 
@@ -691,10 +691,10 @@ for iobj,obj in enumerate(data_json[str(opt.bop_frame)]):
         gray_texture = cv2.cvtColor(texture_image, cv2.COLOR_BGR2GRAY)
 
         # Find the white spots in the grayscale image (you may need to adjust the threshold)
-        mask = cv2.inRange(gray_texture, 200, 255)
+        mask = cv2.inRange(gray_texture, 240, 255)
 
         # Apply inpainting to fill in the white spots
-        texture_image = cv2.inpaint(texture_image, mask, inpaintRadius=3, flags=cv2.INPAINT_TELEA)
+        texture_image = cv2.inpaint(texture_image, mask, inpaintRadius=1, flags=cv2.INPAINT_NS)
 
 
     # black_coords = np.where(grayscale_image >20)
