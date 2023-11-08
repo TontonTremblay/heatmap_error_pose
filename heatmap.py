@@ -101,6 +101,11 @@ parser.add_argument(
     '--adds',
     action='store_true',
 )
+parser.add_argument(
+    '--raw',
+    action='store_true',
+    help='make the displayed textured raw, so you have a non smooth texture, but at least it is a little faster.'
+)
 
 parser.add_argument(
     '--out',
@@ -254,7 +259,7 @@ if opt.bop:
     data_json['camera_data']['intrinsics']['cy'] = camera_data_json[str(opt.bop_frame)]["cam_K"][5]
 
     # load an image for resolution 
-    
+
     path_imgs = "/".join(opt.path_json_gt.split("/")[:-1]+ ['rgb/'])
     path_imgs = sorted(glob.glob(path_imgs + "*.png"))
     opt.im_path = path_imgs[0]
@@ -681,11 +686,18 @@ for iobj,obj in enumerate(data_json[str(opt.bop_frame)]):
         else:
             None  # Return black pixel if no non-black pixel found
 
+    if opt.raw is False:
+        # Convert the texture image to grayscale
+        gray_texture = cv2.cvtColor(texture_image, cv2.COLOR_BGR2GRAY)
 
-    grayscale_image = cv2.cvtColor(texture_image, cv2.COLOR_BGR2GRAY)
+        # Find the white spots in the grayscale image (you may need to adjust the threshold)
+        mask = cv2.inRange(gray_texture, 200, 255)
+
+        # Apply inpainting to fill in the white spots
+        texture_image = cv2.inpaint(texture_image, mask, inpaintRadius=3, flags=cv2.INPAINT_TELEA)
 
 
-    # black_coords = np.where(grayscale_image == 0)
+    # black_coords = np.where(grayscale_image >20)
 
     # for x, y in zip(*black_coords):
     #     c = find_non_black_in_window(texture_image, x, y)
