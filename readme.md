@@ -1,6 +1,6 @@
 # Heatmap error distance 
 
-[heatmap example](example.png)
+![heatmap example](example.png)
 
 This is the code that was used to generate the heatmap results for [Diff-DOPE](https://arxiv.org/abs/2310.00463). If you are using BOP annotation you should be able to use the code. There is an example folder that is self contained. 
 
