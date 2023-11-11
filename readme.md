@@ -8,7 +8,7 @@ This is the code that was used to generate the heatmap results for [Diff-DOPE](h
 python heatmap.py --opencv --bop --overlay --path_json_gt example/scene_gt.json --path_json_gu example/diff_dope.json --objs_folder example/models/ --contour --spp 100
 ```
 
-This should produce the image above. Run with `--raw` for a faster generation
+This should produce the image above. Use `--max_distance` to change the interval, it is expressed in cm.  
 
 ## How to cite
 If you are using this code in your research, please cite this as follow, 
