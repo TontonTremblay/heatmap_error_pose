@@ -10,7 +10,7 @@ python heatmap.py --opencv --bop --overlay --path_json_gt example/scene_gt.json 
 
 This should produce the image above. Run with `--raw` for a faster generation
 
-# How to cite
+## How to cite
 If you are using this code in your research, please cite this as follow, 
 ```
 @misc{tremblay2023diffdope,
